@@ -1,0 +1,60 @@
+<%- include('includes/header') %> <%- include('includes/navbar') %>
+<div class="container mt-5">
+  <table class="table table-borderless table-striped">
+    <thead>
+      <td>No</td>
+      <td>Product ID</td>
+      <td>Image</td>
+      <td>Author</td>
+      <td>Product name</td>
+      <td>Description</td>
+      <td>Price</td>
+      <td>Actions</td>
+    </thead>
+    <tbody>
+        <body>
+      <% for(let i =0;i< items.length;i++) {%>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><%= items[i]._id  %></td>
+        
+        <td><img style="width: 75px" src="/<%= items[i].Image %>"></td>
+        <td><%= items[i].Author %></td>
+        <td><%= items[i].Name %></td>
+        <td><%= items[i].Description %></td>
+        <td><%= items[i].Price %> $</td>
+        <form method="post">
+            <td>
+              <input type="hidden" name="id" value="<%= items[i]._id %>" />
+              <input
+                type="submit"
+                class="btn btn-success"
+                value="Save"
+                formaction="/admin/products/save"
+              />
+  
+              <input
+                type="submit"
+                class="btn btn-danger"
+                value="Delete"
+                formaction="/admin/products/delete"
+              />
+            </td>
+          </form>
+          <% } %>
+    </tbody>
+  </table>
+
+  <div class="container fixed-bottom my-5 d-flex justify-content-around">
+    <form method="post">
+      <input
+        type="submit"
+        class="btn btn-primary"
+        value="Add Product"
+        formaction="/admin/add"
+      />
+    </form>
+  </div>
+</div>
+
+<%-include('includes/footer') %>

@@ -1,0 +1,49 @@
+<%- include('includes/header') %> <%- include('includes/navbar') %>
+
+<div class="container mt-5">
+  <div class="container my-5 d-flex justify-content-around">
+    <form method="post">
+      <input
+        type="submit"
+        class="btn btn-primary"
+        value="All"
+        formaction="/cart/orderall"
+      />
+      <input
+        type="submit"
+        class="btn btn-primary"
+        value="Pending"
+        formaction="/cart/deleteall"
+      />
+      <form method="post">
+        <input
+          type="submit"
+          class="btn btn-primary"
+          value="Sent"
+          formaction="/cart/orderall"
+        />
+        <input
+          type="submit"
+          class="btn btn-primary"
+          value="Completed"
+          formaction="/cart/deleteall"
+        />
+    </form>
+  </div>
+  <form method=""></form>
+  <table class="table table-borderless table-striped">
+    <thead class="thead-dark">
+      <td>No</td>
+      <td>Image</td>
+      <td>Product name</td>
+      <td>Amount</td>
+      <td>Price</td>
+      <td>Address</td>
+      <td>Status</td>
+      <td>Time</td>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<%- include('includes/footer') %>

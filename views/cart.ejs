@@ -1,0 +1,83 @@
+<%- include('includes/header') %> <%- include('includes/navbar') %>
+
+<div class="container mt-5">
+  <% if(items.length === 0) { %>
+  <p class="alert alert-danger">There are no items in your cart</p>
+  <% } else {%> <% if(validationError) {%>
+  <p class="alert alert-danger"><%= validationError.msg %></p>
+  <% } %>
+  <table class="table table-borderless table-striped">
+    <thead class="thead-dark">
+      <td>No</td>
+      <td>Image</td>
+      <td>Product name</td>
+      <td>Price</td>
+      <td>Amount</td>
+      <td>Total</td>
+      <td>Actions</td>
+    </thead>
+    <tbody>
+      <% for(let i =0;i< items.length;i++) {%>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><img style="width: 75px" src="<%= items[i].Image %>"></td>
+        <td><%= items[i].Name %></td>
+        <td><%= items[i].Price %> $</td>
+        <form method="post">
+          <td>
+            <input
+              type="number"
+              name="amount"
+              class="form-control"
+              value="<%= items[i].Amount %>"
+            />
+          </td>
+          <td><%= items[i].Price * items[i].Amount %> $</td>
+          <td>
+            <input type="hidden" name="cartId" value="<%= items[i]._id %>" />
+            <input
+              type="submit"
+              class="btn btn-primary"
+              value="Order"
+              formaction="/cart/order"
+            />
+            <input
+              type="submit"
+              class="btn btn-success"
+              value="Save"
+              formaction="/cart/save"
+            />
+
+            <input
+              type="submit"
+              class="btn btn-danger"
+              value="Delete"
+              formaction="/cart/delete"
+            />
+          </td>
+        </form>
+      </tr>
+
+      <% } %> <% } %>
+    </tbody>
+  </table>
+  <div class="container fixed-bottom my-5 d-flex justify-content-around">
+    <span>Total Price 0$</span>
+    <form method="post">
+      <input
+        type="submit"
+        class="btn btn-primary"
+        value="Order all"
+        formaction="/cart/orderall"
+      />
+      <input
+        type="submit"
+        class="btn btn-danger"
+        value="Delete all"
+        formaction="/cart/deleteall"
+      />
+    </form>
+  </div>
+</div>
+
+<%- include('includes/footer') %>

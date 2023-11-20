@@ -1,35 +1,55 @@
-<%- include('includes/header') %>
-<%- include('includes/navbar') %>
-
-
+<%- include('includes/header') %> <%- include('includes/navbar') %>
 
 <div class="container">
-    <div class="row">
-
-        <% for (let product of products) { %>
-        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="card" style="width: 18rem;">
-                <img src="<%= product.Image %>" class="card-img-top" alt="<%= product.Name %>">
-                <div class="card-body">
-                  <h5 class="card-title"><a href=/prodct/<%= product.Name %>"><%= product.Name %></a></h5>
-                  <p class="card-text"><%= product.Description %></p>
-                  <p class="">Price: $<%= product.Price %></p>
-                  <form action="/cart" method="post">
-                    <input type="number" name="amount" class="form-control">
-                    <input type="submit" value="Add to Cart" class="btn btn-primary">
-                  </form>
-                </div>
-              </div>
-        </div>
-
-        <% } %>
+  <div class="row">
+    <form action="/" method="get">
+      <select name="category" class="form-control m-4">
+        <option value="all">All</option>
+        <option value="Programming">Programming</option>
+        <option value="Psychology">Psychology</option>
+      </select>
+      <input type="submit" value="filter" class="mb-4 mx-4 btn btn-primary" />
+    </form>
+    <% if(validationError) {%>
+      <p class="alert alert-danger"><%= validationError.msg %></p>
+      <% } %>
+    <% if(products.length === 0) { %>
+    <div class="alert alert-danger">
+      <h3>No Products are available</h3>
     </div>
+    <% } else { %> <% for (let product of products) { %>
+    <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+      <div class="card m-1" style="width: 18rem">
+        <img
+          src="<%= product.Image %>"
+          class="card-img-top"
+          alt="<%= product.Name %>"
+        />
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="/product/<%= product._id %>"><%= product.Name %></a>
+          </h5>
+          <p class="card-text"><%= product.Description %></p>
+          <p class="">Price: $<%= product.Price %></p>
+          <form action="/cart" method="post">
+            <input type="number" name="amount" class="form-control" />
+            <input type="hidden" name="name" value="<%= product.Name %>">
+            <input type="hidden" name="image" value="<%= product.Image %>">
+            <input type="hidden" name="price" value="<%= product.Price %>">
+            <input type="hidden" name="productId" value="<%= product._id %>">
+            <input type="hidden" name="redirectTo" value="/">
+            <input
+              type="submit"
+              value="Add to Cart"
+              class="btn mt-3 btn-primary"
+            />
+          </form>  
+        </div>
+      </div>
+    </div>
+
+    <% } %> <%}%>
+  </div>
 </div>
-
-
-
-
-
-
 
 <%- include('includes/footer') %>
